@@ -8,6 +8,7 @@ class Branch {
 public:
 	Branch();
 	Branch(const int max_length);
+	Branch(const float angle);
 
 	void draw(SDL_Renderer *renderer, int x, int y, float parent_angle);
 	void grow(int depth);

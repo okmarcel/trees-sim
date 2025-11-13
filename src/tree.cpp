@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 #define DEFAULT_MAX_DEPTH 3  // VALUE FOR TESTING
-#define DEFAULT_MAX_LENGTH 301
+#define DEFAULT_MAX_LENGTH 200
 #define GROWTH_INCREMENT 5
 #define WHITE_COLOR 255, 255, 255, 255
 #define GREEN_COLOR 0, 180, 0, 255;
@@ -19,10 +19,15 @@ Branch::Branch(const int max_length)
 	length = 0.0f;
 	angle = M_PI * 2.0f * (static_cast<float>(rand()) / RAND_MAX - 0.5f);
 }
+Branch::Branch(const float angle)
+	: angle(angle) {
+	max_length = DEFAULT_MAX_LENGTH;
+	length = 0.0f;
+}
 void Branch::draw(SDL_Renderer *renderer, int x, int y, float parent_angle) {
 	float total_angle = angle + parent_angle;
 	int x2 = x + length * std::sin(total_angle);
-	int y2 = y + length * std::cos(total_angle);
+	int y2 = y - length * std::cos(total_angle);
 
 	SDL_SetRenderDrawColor(renderer, WHITE_COLOR);
 
@@ -55,7 +60,7 @@ void Branch::grow(int depth) {
 
 Tree::Tree() {
 	max_depth = DEFAULT_MAX_DEPTH;
-	root = std::make_unique<Branch>();
+	root = std::make_unique<Branch>(0.0f);
 }
 Tree::Tree(const int max_depth)
 	: max_depth(max_depth) {

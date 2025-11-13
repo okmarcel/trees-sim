@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <stdbool.h>
+#include <ctime>
 #include <SDL3/SDL.h>
 #include "tree.h"
 
@@ -11,6 +12,7 @@
 int init(SDL_Window **window, SDL_Renderer **renderer);
 
 int main(void) {
+	srand(time(NULL));
 	SDL_Window *window = nullptr;
 	SDL_Renderer *renderer = nullptr;
 	if (init(&window, &renderer))
