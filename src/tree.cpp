@@ -3,9 +3,10 @@
 #include <cmath>
 #include <cstdlib>
 
-#define DEFAULT_MAX_DEPTH 3  // VALUE FOR TESTING
-#define DEFAULT_MAX_LENGTH 200
+#define DEFAULT_MAX_DEPTH 5  // VALUE FOR TESTING
+#define DEFAULT_MAX_LENGTH 300
 #define GROWTH_INCREMENT 5
+#define BRANCH_SHRINK_FACTOR 0.65f
 #define WHITE_COLOR 255, 255, 255, 255
 #define GREEN_COLOR 0, 180, 0, 255;
 
@@ -45,9 +46,10 @@ void Branch::grow(int depth) {
 	} else {
 		if (depth <= 1) return;
 		if (children_count == 0) {
+			int child_max_length = static_cast<int>(BRANCH_SHRINK_FACTOR * max_length);
 			children_count = 2 + rand() % 2;
 			for (int i = 0; i < children_count; i++) {
-				auto child = std::make_unique<Branch>();
+				auto child = std::make_unique<Branch>(child_max_length);
 				children.push_back(std::move(child));
 			}
 		}
