@@ -7,6 +7,7 @@ struct SDL_Renderer;
 class Branch {
 public:
 	Branch();
+	Branch(const int max_length);
 
 	void draw(SDL_Renderer *renderer, int x, int y, float parent_angle);
 	void grow(int depth);
@@ -21,6 +22,7 @@ private:
 class Tree {
 public:
 	Tree();
+	Tree(const int max_depth);
 
 	void draw(SDL_Renderer *renderer);
 	void grow();

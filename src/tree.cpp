@@ -14,6 +14,11 @@ Branch::Branch() {
 	length = 0.0f;
 	angle = M_PI * 2.0f * (static_cast<float>(rand()) / RAND_MAX - 0.5f);
 }
+Branch::Branch(const int max_length)
+	: max_length(max_length) {
+	length = 0.0f;
+	angle = M_PI * 2.0f * (static_cast<float>(rand()) / RAND_MAX - 0.5f);
+}
 void Branch::draw(SDL_Renderer *renderer, int x, int y, float parent_angle) {
 	float total_angle = angle + parent_angle;
 	int x2 = x + length * std::sin(total_angle);
@@ -50,6 +55,10 @@ void Branch::grow(int depth) {
 
 Tree::Tree() {
 	max_depth = DEFAULT_MAX_DEPTH;
+	root = std::make_unique<Branch>();
+}
+Tree::Tree(const int max_depth)
+	: max_depth(max_depth) {
 	root = std::make_unique<Branch>();
 }
 void Tree::draw(SDL_Renderer *renderer) {
